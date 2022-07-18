@@ -2,15 +2,31 @@ var express = require( 'express' );
 var cors = require( 'cors' );
 var app = express();
 
-app.use( cors() );
-app.get( '/', function( req, res) {
+//app.use( cors() );
+app.use(express.static('public'));
+
+// GET API #1 - 단순 테스트
+app.get( '/basic', function( req, res) {
 
    // database에서 가저온 유저 정보:
    var dbData = 'james test user list count: 5'; 
 
+   console.log( 'test' );
+   console.log( dbData );
+   
    res.send( 'Hi, this is backend for simpleJS. 지금시간: ' + new Date().toDateString() + ', 다른정보: ' + dbData );
 });
 
+
+// GET API #2 - index.html 소환
+app.get('/getIndex', function (req, res) {
+   console.log( 'test' );
+   console.log( __dirname );
+   res.sendFile( __dirname + "/public/" + "index.html" );
+});
+
+
+// GET API #3 - 'myInfo' json get
 app.get( '/myInfo', function( req, res) {
 
    var resJson = {};
